@@ -1,0 +1,34 @@
+Nome: JULIO KENJI UEDA NUSP: 9298281
+
+Desafio de Programação: Hyper-threading
+
+1.CÓDIGO
+
+    Linguagem de programação utilizado: C
+    Para executar o programa: $ make run
+
+2.FUNCIONAMENTO DO PROGRAMA E SOLUÇÃO DO DESAFIO
+
+    O programa cria um vetor de double de tamanho 100000000 inicializado com números arbitrários (void populate()), e
+    realiza um processo de divisões sucessivas de um número real com os valores contidos neste vetor (void get_work()).
+    O resultado desta operação não é importante, pois o objetivo é manter ocupado a unidade de ponto flutuante (FPU) de
+    cada núcleo do processador.
+
+    Para realizar o processamento paralelo foi utilizado a interface de programação OpenMP dentro da função get_work().
+
+    Ao usar o modo simples cada núcleo possui uma thread e este possui acesso completo à FPU para realizar a sua tarefa.
+
+    Já no modo Hyper-Threading cada núcleo possui duas threads onde suas tarefas precisam acessar a mesma FPU (recurso
+    compartilhado). O revesamento entre as threads para acessar a FPU causa um atraso que não acontece no modo simples.
+
+
+3.RESULTADO
+
+    Para um sistema com processador Core i7-4770k @2.9GHz, 32k L1, 256k L2, 8M L3, 4 núcleos e OS Linux Mint 18.3 temos:
+
+    com Hyper-Threading (8 threads): 380745388 nanossegundos (média de 100 testes)
+
+    sem Hyper-Threading (4 threads): 343749827 nanossegundos (média de 100 testes)
+
+    Assim, para este caso específico o modo simples foi certa de 10% mais rápido do que em modo Hyper-Threading.
+
